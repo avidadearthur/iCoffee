@@ -45,6 +45,14 @@ class HomeFrame extends JFrame {
         this.setVisible(true);
     }
 
+    public JButton getButtonAddAlarm() {
+        return buttonAddAlarm;
+    }
+
+    public JButton getButtonStats() {
+        return buttonStats;
+    }
+
     public JScrollPane getAlarmScrollPane() {
         JPanel homePagePanel = new JPanel();
         homePagePanel.setLayout(new GridLayoutManager(1000, 7, new Insets(50, 50, 50, 50), 0, -1));
