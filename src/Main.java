@@ -5,13 +5,15 @@ import java.awt.*;
 public class Main {
     private static PageEnum nextPage;
     private static JSONArray jsonResponseAlarms;
+    private static String[] userCredentials;
 
     public static String[] getUserCredentials() {
         return userCredentials;
     }
 
-    private static String[] userCredentials;
-
+    private static void addAlarm() {
+        // Create new alarmFrame
+    }
 
     private static void loginButtonPressed(WelcomePage welcomePage) {
         welcomePage.setVisible(false);
@@ -33,7 +35,7 @@ public class Main {
 
     private static void submitLogin(LoginPage loginPage) {
         jsonResponseAlarms = loginPage.handleForm();
-        if (jsonResponseAlarms.length() != 0){saveUserSession(loginPage.getCredentials());};
+        if (jsonResponseAlarms.length() != 0){saveUserSession(loginPage.getCredentials());}
         loginPage.setVisible(false);
         loginPage.dispose();
         nextPage = PageEnum.HOMEPAGE;
@@ -60,16 +62,20 @@ public class Main {
         switch (newPage) {
             case WELCOME -> {
                 WelcomePage welcomePage = new WelcomePage("Welcome");
+                welcomePage.setSize(500,700);
                 welcomePage.getRegister().addActionListener(e -> registerButtonPressed(welcomePage));
                 welcomePage.getLogin().addActionListener(e -> loginButtonPressed(welcomePage));
             }
             case LOGIN -> {
                 LoginPage loginPage = new LoginPage("Login");
+                loginPage.setSize(500,700);
                 loginPage.getLogin().addActionListener(e -> submitLogin(loginPage));
                 loginPage.getBack().addActionListener(e -> switchPage(PageEnum.WELCOME));
             }
             case HOMEPAGE -> {
                 HomeFrame homePage = new HomeFrame("Home Page",jsonResponseAlarms);
+                homePage.setSize(500,700);
+                homePage.getButtonAddAlarm().addActionListener(e -> addAlarm());
             }
         }
     }
