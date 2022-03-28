@@ -121,7 +121,8 @@ public class EditAlarmFrame extends JFrame{
                 date + "_" + comboBoxHour.getSelectedItem() + ":" + comboBoxMin.getSelectedItem()
                 + ":" + "00" + "/" + "1" + "/" + comboBoxTemp.getSelectedItem() + "/" + textFieldVol.getText();
 
-        //c.makeGETRequest(url);
+        c.makeGETRequest(url);
+        Main.refresh();
 
         System.out.println(url);
    }
