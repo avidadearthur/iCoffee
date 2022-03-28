@@ -22,11 +22,11 @@ class HomeFrame extends JFrame {
         System.out.println(jsonResponseAlarms);
         setHomePageUI();
 
-        buttonAddAlarm.addActionListener(new ActionListener() {
+/*        buttonAddAlarm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("add alarm");
             }
-        });
+        });*/
 
         buttonStats.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

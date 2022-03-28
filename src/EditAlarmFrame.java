@@ -20,7 +20,6 @@ public class EditAlarmFrame extends JFrame{
     private JPanel myPanel;
     private JDateChooser myDate;
     private JButton setDateButton;
-    private String date;
     private JPanel AlarmPanel;
     public JComboBox<String> comboBoxHour;
     public JComboBox<String> comboBoxMin;
@@ -55,16 +54,77 @@ public class EditAlarmFrame extends JFrame{
 
         this.setContentPane(myPanel);
 
-        setDateButton.addActionListener(new ActionListener() {
+        saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                date = sdf.format(myDate.getDate());
-                myLabel.setText(date);
+                // Update Alarm
+                String index =  alarmInfo.getString("sessionID");
+                updateAlarm(index);
             }
         });
 
     }
+
+    public EditAlarmFrame(String title){
+        super(title);
+        myDate = new JDateChooser();
+        comboBoxHour = new JComboBox<>();
+        comboBoxMin = new JComboBox<>();
+        comboBoxTemp = new JComboBox<>();
+        textFieldVol = new JTextField();
+
+        setCalendarUI();
+
+        this.setContentPane(myPanel);
+
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Add Alarm
+                addAlarm();
+            }
+        });
+
+    }
+
+    private void updateAlarm(String id) {
+        String username = Main.getUserCredentials()[0];
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(myDate.getDate());
+        Connection c = new Connection();
+
+        System.out.println("You are editing alarm " + id);
+        //Edit alarm query
+
+        String url = "https://studev.groept.be/api/a21ib2b02/updateAlarm/" + username + "/" +
+                String.valueOf(java.time.LocalDateTime.now()).replaceAll("T", "_") + "/" +
+                date + "_" + comboBoxHour.getSelectedItem() + ":" + comboBoxMin.getSelectedItem()
+                + ":" + "00" + "/" + "1" + "/" + comboBoxTemp.getSelectedItem() + "/" + textFieldVol.getText()
+                + "/" + id;
+
+        c.makeGETRequest(url);
+        Main.refresh();
+
+        System.out.println(url);
+    }
+
+    private void addAlarm() {
+        String username = Main.getUserCredentials()[0];
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(myDate.getDate());
+        Connection c = new Connection();
+
+        System.out.println("You are adding a new alarm ");
+
+        String url = "https://studev.groept.be/api/a21ib2b02/addAlarm/" + username + "/" +
+                String.valueOf(java.time.LocalDateTime.now()).replaceAll("T", "_") + "/" +
+                date + "_" + comboBoxHour.getSelectedItem() + ":" + comboBoxMin.getSelectedItem()
+                + ":" + "00" + "/" + "1" + "/" + comboBoxTemp.getSelectedItem() + "/" + textFieldVol.getText();
+
+        //c.makeGETRequest(url);
+
+        System.out.println(url);
+   }
 
     public JComboBox<String> getComboBoxTemp() {
         return comboBoxTemp;
@@ -155,10 +215,6 @@ public class EditAlarmFrame extends JFrame{
     public void setLabel(String newText)
     {
         myLabel.setText(newText);
-    }
-
-    public String getDate() {
-        return date;
     }
 
 }

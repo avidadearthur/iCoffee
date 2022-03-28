@@ -12,7 +12,9 @@ public class Main {
     }
 
     private static void addAlarm() {
-        // Create new alarmFrame
+        EditAlarmFrame newAlarm= new EditAlarmFrame("New AlarmPanel");
+        newAlarm.setVisible(true);
+        newAlarm.pack();
     }
 
     private static void loginButtonPressed(WelcomePage welcomePage) {
