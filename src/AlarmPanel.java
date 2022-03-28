@@ -10,18 +10,18 @@ import java.awt.event.ActionListener;
 public class AlarmPanel extends JPanel {
     public JSONObject alarmInfo;
     public String index;
-    public JButton calendarButton;
+    public JButton editButton;
     public JButton deleteButton;
 
     public AlarmPanel(JSONObject alarmInfo) {
         this.alarmInfo = alarmInfo;
         this.index =  alarmInfo.getString("sessionID");
-        calendarButton = new JButton();
+        editButton = new JButton();
         deleteButton = new JButton();
 
-        calendarButton.addActionListener(new ActionListener() {
+        editButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                CalendarFrame ui= new CalendarFrame("AlarmPanel " + index);
+                EditAlarmFrame ui= new EditAlarmFrame("AlarmPanel " + index);
                 ui.setVisible(true);
                 ui.pack();
             }
@@ -72,9 +72,9 @@ public class AlarmPanel extends JPanel {
         deleteButton.setText("Delete Alarm");
         alarmPanel.add(deleteButton, new com.intellij.uiDesigner.core.GridConstraints(5, 0, 1, 3, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
 
-        calendarButton.setText("Edit Alarm");
+        editButton.setText("Edit Alarm");
 
-        alarmPanel.add(calendarButton, new com.intellij.uiDesigner.core.GridConstraints(4, 0, 1, 3, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        alarmPanel.add(editButton, new com.intellij.uiDesigner.core.GridConstraints(4, 0, 1, 3, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         JLabel showDate2 = new JLabel();
 
         //showDate2.setText("(date)");
