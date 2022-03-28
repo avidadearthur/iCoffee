@@ -63,7 +63,7 @@ public class Connection {
             JSONArray array = new JSONArray(jsonString);
             for (int i = 0; i < array.length(); i++) {
                 JSONObject curObject = array.getJSONObject(i);
-                list.add(Integer.valueOf(curObject.getString(key))) ;
+                list.add(curObject.getInt(key));
             }
         } catch (JSONException e) {
             e.printStackTrace();

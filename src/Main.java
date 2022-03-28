@@ -1,5 +1,6 @@
 import org.json.JSONArray;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Main {
@@ -76,7 +77,7 @@ public class Main {
             }
             case HOMEPAGE -> {
                 HomeFrame homePage = new HomeFrame("Home Page",jsonResponseAlarms);
-                homePage.setSize(1000,700);
+                homePage.setExtendedState(homePage.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 homePage.getButtonAddAlarm().addActionListener(e -> addAlarm());
             }
         }
