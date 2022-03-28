@@ -34,9 +34,8 @@ class HomeFrame extends JFrame {
             }
         });
 
+        //this.setSize(1200, 600);
         this.setContentPane(contentPane);
-
-        this.setSize(600, 800);
         this.setLocationRelativeTo(null);
         // this.getContentPane().setBackground(Color.ORANGE);
 
@@ -119,7 +118,7 @@ class HomeFrame extends JFrame {
 
 
         JScrollPane scrollPane = getAlarmScrollPane();
-        panel3.add(scrollPane, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(250, 500), null, 1, false));
+        panel3.add(scrollPane, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(200, 500), null, 1, false));
         panel3.setBackground(Color.YELLOW);
 
         final JPanel panel6 = new JPanel();
