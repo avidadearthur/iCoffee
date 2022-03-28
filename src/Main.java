@@ -74,7 +74,7 @@ public class Main {
             }
             case HOMEPAGE -> {
                 HomeFrame homePage = new HomeFrame("Home Page",jsonResponseAlarms);
-                homePage.setSize(500,700);
+                homePage.setSize(1000,800);
                 homePage.getButtonAddAlarm().addActionListener(e -> addAlarm());
             }
         }
