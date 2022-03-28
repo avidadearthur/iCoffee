@@ -115,7 +115,7 @@ class DBparsing extends JFrame{
     public String getSummaryA() {
 
         int weekCons = parseWeekly(c.makeGETRequest("https://studev.groept.be/api/a21ib2b02/coffeeConsumptionPerDay/" + targetUser));
-        return "Your weekly coffee consumption is " + weekCons + ".";
+        return "Your weekly coffee consumption is " + weekCons + "cl.";
     }
 
     public String getSummaryB() {
@@ -154,7 +154,7 @@ class DBparsing extends JFrame{
     public JFreeChart createChart(CategoryDataset dataset) {
 
         return ChartFactory.createBarChart(
-                "Daily Coffee Consumption In A Week",
+                "Daily coffee consumption in a week",
                 "",
                 "Coffee Volume (cL)",
                 dataset,
