@@ -12,6 +12,13 @@ public class Main {
         return userCredentials;
     }
 
+    private static void logOut(HomeFrame homePage) {
+        homePage.setVisible(false);
+        homePage.dispose();
+        nextPage = PageEnum.LOGIN;
+        switchPage(nextPage);
+    }
+
     private static void addAlarm() {
         EditAlarmFrame newAlarm= new EditAlarmFrame("New AlarmPanel");
         newAlarm.setVisible(true);
@@ -50,18 +57,18 @@ public class Main {
         Connection connection = new Connection();
         String response = connection.makeGETRequest("https://studev.groept.be/api/a21ib2b02/getAlarms/" + userCredential[0]);
         jsonResponseAlarms = new JSONArray(response);
-        for(Window w: Window.getWindows()) {
-            if (w.isShowing()) {
-                w.setVisible(false);
-            }
-        }
+
         //System.out.println(Arrays.toString(JFrame.getFrames()));;
         nextPage = PageEnum.HOMEPAGE;
         switchPage(nextPage);
     }
 
     public static void switchPage(PageEnum newPage) {
-
+        for(Window w: Window.getWindows()) {
+            if (w.isShowing()) {
+                w.setVisible(false);
+            }
+        }
         switch (newPage) {
             case WELCOME -> {
                 WelcomePage welcomePage = new WelcomePage("Welcome");
@@ -79,6 +86,7 @@ public class Main {
                 HomeFrame homePage = new HomeFrame("Home Page",jsonResponseAlarms);
                 homePage.setExtendedState(homePage.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 homePage.getButtonAddAlarm().addActionListener(e -> addAlarm());
+                homePage.getButtonLogOut().addActionListener(e -> logOut(homePage));
             }
         }
     }

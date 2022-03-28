@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 class HomeFrame extends JFrame {
     public JPanel contentPane;
     public JButton buttonAddAlarm;
-    public JButton buttonStats;
+    public JButton buttonLogOut;
     public JSONArray alarms;
 
     public HomeFrame(String title, JSONArray jsonResponseAlarms) {
@@ -30,7 +30,7 @@ class HomeFrame extends JFrame {
             }
         });*/
 
-        buttonStats.addActionListener(new ActionListener() {
+        buttonLogOut.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("stats");
             }
@@ -46,8 +46,8 @@ class HomeFrame extends JFrame {
         return buttonAddAlarm;
     }
 
-    public JButton getButtonStats() {
-        return buttonStats;
+    public JButton getButtonLogOut() {
+        return buttonLogOut;
     }
 
     public JScrollPane getAlarmScrollPane() {
@@ -91,9 +91,10 @@ class HomeFrame extends JFrame {
         buttonAddAlarm = new JButton();
         buttonAddAlarm.setText("Add alarm");
         panel2.add(buttonAddAlarm, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        buttonStats = new JButton();
-        buttonStats.setText("Coffee stats");
-        panel2.add(buttonStats, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+
+        buttonLogOut = new JButton();
+        buttonLogOut.setText("Logout");
+        panel2.add(buttonLogOut, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         //panel2.setBackground(Color.green);
 
         final JPanel panel3 = new JPanel();
