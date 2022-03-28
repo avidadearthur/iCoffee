@@ -122,10 +122,7 @@ class HomeFrame extends JFrame {
         JFreeChart chart = new DBparsing(Main.getUserCredentials()[0]).initChart();
         JPanel chartPanel = new ChartPanel(chart);
         chartPanel.setVisible(true);
-        panel6.add(chartPanel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 1, false));
-
-        //panel6.setBackground(Color.red);
-        panel3.add(panel6, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 1, false));
+        panel3.add(chartPanel, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 1, false));
 
         final JPanel panel4 = new JPanel();
         panel4.setLayout(new GridLayoutManager(1, 2, new Insets(5, 5, 10, 5), -1, -1));
