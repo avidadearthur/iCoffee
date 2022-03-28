@@ -29,8 +29,8 @@ class DBparsing extends JFrame{
     private JLabel myLabel1;
     private boolean back;
 
-    public DBparsing(String user) {
-        initUI(user);
+    public DBparsing() {
+        initUI();
         back = false;
     }
 
@@ -192,31 +192,30 @@ class DBparsing extends JFrame{
         return temp;
     }
 
-    public void initUI(String user)
+    public JPanel initUI()
     {
+        String user = "ruben";
         CategoryDataset dataset = createDataset(user);
         int weekCons = parseWeekly(makeGETRequest("https://studev.groept.be/api/a21ib2b02/coffeeConsumptionPerDay/" + user));
         String temp = parseTemp(makeGETRequest("https://studev.groept.be/api/a21ib2b02/coffeeTemp/" + user));
 
         JFreeChart chart = createChart(dataset);
-        this.chartPanel = new ChartPanel(chart);
-        chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        chartPanel.setBackground(Color.white);
+        JPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(800,500));
 
         myPanel = new JPanel();
         myLabel = new JLabel();
         myLabel1 = new JLabel();
 
-        myLabel.setText("Your weekly coffee consumption is " + weekCons + ".");
-        myLabel1.setText("You like having your coffee " + temp + ".");
+        //myLabel.setText("Your weekly coffee consumption is " + weekCons + ".");
+        //myLabel1.setText("You like having your coffee " + temp + ".");
         myPanel.add(chartPanel);
         myPanel.add(myLabel);
         myPanel.add(myLabel1);
-        setContentPane(myPanel);
 
-        pack();
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setLocationRelativeTo(null);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        return myPanel;
     }
 
     public CategoryDataset createDataset(String user)
@@ -273,8 +272,7 @@ class DBparsing extends JFrame{
 
     public static void main(String[] args) throws Exception {
         EventQueue.invokeLater(() -> {
-
-            var ex = new DBparsing("ruben");
+            var ex = new DBparsing();
             ex.setVisible(true);
         });
 
