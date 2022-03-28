@@ -7,16 +7,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,87 +17,17 @@ import java.util.Date;
 class DBparsing extends JFrame{
 
     private JPanel myPanel;
+    private Connection c;
     private ChartPanel chartPanel;
     private JLabel myLabel;
     private JLabel myLabel1;
+    private String targetUser;
     private boolean back;
 
-    public DBparsing() {
-        initUI();
+    public DBparsing(String targetUser) {
+        c = new Connection();
+        this.targetUser = targetUser;
         back = false;
-    }
-
-    public String makeGETRequest(String urlName){
-        BufferedReader rd = null;
-        StringBuilder sb = null;
-        String line = null;
-        try {
-            URL url = new URL(urlName);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.connect();
-            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            sb = new StringBuilder();
-            while ((line = rd.readLine()) != null)
-            {
-                sb.append(line + '\n');
-            }
-            conn.disconnect();
-            return sb.toString();
-        }
-        catch (MalformedURLException e){
-            e.printStackTrace();
-        }
-        catch (ProtocolException e){
-            e.printStackTrace();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-        return "";
-
-    }
-
-    public int[] parseJSON(String jsonString){
-        int[] consumption = new int[7];
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-        String date = "";
-
-
-        try {
-            JSONArray array = new JSONArray(jsonString);
-            for (int i = 0; i < array.length(); i++)
-            {
-                JSONObject curObject = array.getJSONObject(i);
-                date = curObject.getString("alarm_datetime");
-                for(int j=0; j<7; j++)
-                {
-                    Calendar cal = Calendar.getInstance();
-                    cal.add(Calendar.DATE, -j);
-                    Date todate1 = cal.getTime();
-                    String fromdate = dateFormat.format(todate1);
-
-
-                    String alarmDate = "";
-                    for(int k=0; k<10; k++)
-                    {
-                        alarmDate += Character.toString(date.charAt(k));
-                    }
-
-
-                    if(fromdate.equals(alarmDate))
-                    {
-                        consumption[j] += curObject.getInt("consumption");
-                    }
-                }
-            }
-        }
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return consumption;
     }
 
     public int parseWeekly(String jsonString){
@@ -112,8 +35,7 @@ class DBparsing extends JFrame{
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        String date = "";
-
+        String date;
 
         try {
             JSONArray array = new JSONArray(jsonString);
@@ -192,36 +114,31 @@ class DBparsing extends JFrame{
         return temp;
     }
 
-    public JPanel initUI()
+    public JFreeChart initChart()
     {
-        String user = "ruben";
-        CategoryDataset dataset = createDataset(user);
-        int weekCons = parseWeekly(makeGETRequest("https://studev.groept.be/api/a21ib2b02/coffeeConsumptionPerDay/" + user));
-        String temp = parseTemp(makeGETRequest("https://studev.groept.be/api/a21ib2b02/coffeeTemp/" + user));
+        CategoryDataset dataset = createDataset(targetUser);
+        return createChart(dataset);
+    }
+    public JPanel getSummary() {
 
-        JFreeChart chart = createChart(dataset);
-        JPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new Dimension(800,500));
+        int weekCons = parseWeekly(c.makeGETRequest("https://studev.groept.be/api/a21ib2b02/coffeeConsumptionPerDay/" + targetUser));
+        String temp = parseTemp(c.makeGETRequest("https://studev.groept.be/api/a21ib2b02/coffeeTemp/" + targetUser));
 
-        myPanel = new JPanel();
         myLabel = new JLabel();
         myLabel1 = new JLabel();
-
-        //myLabel.setText("Your weekly coffee consumption is " + weekCons + ".");
-        //myLabel1.setText("You like having your coffee " + temp + ".");
-        myPanel.add(chartPanel);
+        myLabel.setText("Your weekly coffee consumption is " + weekCons + ".");
+        myLabel1.setText("You like having your coffee " + temp + ".");
         myPanel.add(myLabel);
         myPanel.add(myLabel1);
 
-        //setLocationRelativeTo(null);
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        return myPanel;
+        return null;
     }
 
     public CategoryDataset createDataset(String user)
     {
         var dataset = new DefaultCategoryDataset();
-        int[] consumption = parseJSON(makeGETRequest("https://studev.groept.be/api/a21ib2b02/coffeeConsumptionPerDay/" + user));
+        String url = "https://studev.groept.be/api/a21ib2b02/coffeeConsumptionPerDay/" + user;
+        ArrayList<Integer> consumption = c.parseJSONtoList(c.makeGETRequest(url), "consumption");
         String[] date = new String[7];
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -234,13 +151,13 @@ class DBparsing extends JFrame{
             date[i] = date1;
         }
 
-        dataset.setValue(consumption[6], "Coffee Volume", date[6]);
-        dataset.setValue(consumption[5], "Coffee Volume", date[5]);
-        dataset.setValue(consumption[4], "Coffee Volume", date[4]);
-        dataset.setValue(consumption[3], "Coffee Volume", date[3]);
-        dataset.setValue(consumption[2], "Coffee Volume", date[2]);
-        dataset.setValue(consumption[1], "Coffee Volume", date[1]);
-        dataset.setValue(consumption[0], "Coffee Volume", date[0]);
+        dataset.setValue(consumption.get(6), "Coffee Volume", date[6]);
+        dataset.setValue(consumption.get(5), "Coffee Volume", date[5]);
+        dataset.setValue(consumption.get(4), "Coffee Volume", date[4]);
+        dataset.setValue(consumption.get(3), "Coffee Volume", date[3]);
+        dataset.setValue(consumption.get(2), "Coffee Volume", date[2]);
+        dataset.setValue(consumption.get(1), "Coffee Volume", date[1]);
+        dataset.setValue(consumption.get(0), "Coffee Volume", date[0]);
 
         return dataset;
     }
@@ -255,26 +172,16 @@ class DBparsing extends JFrame{
 
     public JFreeChart createChart(CategoryDataset dataset) {
 
-        JFreeChart barChart = ChartFactory.createBarChart(
+        return ChartFactory.createBarChart(
                 "Daily Coffee Consumption In A Week",
                 "",
                 "Coffee Volume (cL)",
                 dataset,
                 PlotOrientation.VERTICAL,
                 false, true, false);
-
-        return barChart;
     }
 
     public ChartPanel getChartPanel() {
         return chartPanel;
-    }
-
-    public static void main(String[] args) throws Exception {
-        EventQueue.invokeLater(() -> {
-            var ex = new DBparsing();
-            ex.setVisible(true);
-        });
-
     }
 }

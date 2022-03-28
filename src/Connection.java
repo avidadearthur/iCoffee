@@ -44,17 +44,31 @@ public class Connection {
     }
 
     public String parseJSON (String jsonString, String key){
-        String var = "";
+        StringBuilder var = new StringBuilder();
         try {
             JSONArray array = new JSONArray(jsonString);
             for (int i = 0; i < array.length(); i++) {
                 JSONObject curObject = array.getJSONObject(i);
-                var += curObject.getString(key);
+                var.append(curObject.getString(key));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return var;
+        return var.toString();
+    }
+
+    public ArrayList<Integer> parseJSONtoList (String jsonString, String key){
+        ArrayList<Integer> list = new ArrayList<>();
+        try {
+            JSONArray array = new JSONArray(jsonString);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject curObject = array.getJSONObject(i);
+                list.add(Integer.valueOf(curObject.getString(key))) ;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     public String parseJSONputdatain (String jsonString){
