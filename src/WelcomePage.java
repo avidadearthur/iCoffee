@@ -20,7 +20,6 @@ public class WelcomePage extends JFrame {
         this.setVisible(true);
         this.setSize(500, 800);
         this.setLocationRelativeTo(null);
-        this.getContentPane().setBackground(Color.ORANGE);
     }
 
     public JButton getRegister() {
