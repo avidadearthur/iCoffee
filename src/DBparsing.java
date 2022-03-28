@@ -15,19 +15,12 @@ import java.util.Date;
 
 
 class DBparsing extends JFrame{
-
-    private JPanel myPanel;
     private Connection c;
-    private ChartPanel chartPanel;
-    private JLabel myLabel;
-    private JLabel myLabel1;
     private String targetUser;
-    private boolean back;
 
     public DBparsing(String targetUser) {
         c = new Connection();
         this.targetUser = targetUser;
-        back = false;
     }
 
     public int parseWeekly(String jsonString){
@@ -51,13 +44,13 @@ class DBparsing extends JFrame{
                     String fromdate = dateFormat.format(todate1);
 
 
-                    String alarmDate = "";
+                    StringBuilder alarmDate = new StringBuilder();
                     for(int k=0; k<10; k++)
                     {
-                        alarmDate += Character.toString(date.charAt(k));
+                        alarmDate.append(Character.toString(date.charAt(k)));
                     }
 
-                    if(fromdate.equals(alarmDate))
+                    if(fromdate.equals(alarmDate.toString()))
                     {
                         weekConsumption += curObject.getInt("consumption");
                     }
@@ -119,19 +112,15 @@ class DBparsing extends JFrame{
         CategoryDataset dataset = createDataset(targetUser);
         return createChart(dataset);
     }
-    public JPanel getSummary() {
+    public String getSummaryA() {
 
         int weekCons = parseWeekly(c.makeGETRequest("https://studev.groept.be/api/a21ib2b02/coffeeConsumptionPerDay/" + targetUser));
+        return "Your weekly coffee consumption is " + weekCons + ".";
+    }
+
+    public String getSummaryB() {
         String temp = parseTemp(c.makeGETRequest("https://studev.groept.be/api/a21ib2b02/coffeeTemp/" + targetUser));
-
-        myLabel = new JLabel();
-        myLabel1 = new JLabel();
-        myLabel.setText("Your weekly coffee consumption is " + weekCons + ".");
-        myLabel1.setText("You like having your coffee " + temp + ".");
-        myPanel.add(myLabel);
-        myPanel.add(myLabel1);
-
-        return null;
+        return "You like having your coffee " + temp + ".";
     }
 
     public CategoryDataset createDataset(String user)
@@ -162,14 +151,6 @@ class DBparsing extends JFrame{
         return dataset;
     }
 
-    public JPanel getMyPanel() {
-        return myPanel;
-    }
-
-    public boolean getBack() {
-        return back;
-    }
-
     public JFreeChart createChart(CategoryDataset dataset) {
 
         return ChartFactory.createBarChart(
@@ -179,9 +160,5 @@ class DBparsing extends JFrame{
                 dataset,
                 PlotOrientation.VERTICAL,
                 false, true, false);
-    }
-
-    public ChartPanel getChartPanel() {
-        return chartPanel;
     }
 }
