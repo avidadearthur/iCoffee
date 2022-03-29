@@ -125,7 +125,7 @@ class DataVisualization {
     {
         var dataset = new DefaultCategoryDataset();
         String url = "https://studev.groept.be/api/a21ib2b02/coffeeConsumptionPerDay/" + user;
-        ArrayList<Integer> consumption = c.parseJSONtoList(c.makeGETRequest(url), "consumption");
+        int[] consumption = parseDaily(c.makeGETRequest(url));
         String[] date = new String[7];
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -136,16 +136,47 @@ class DataVisualization {
             Date caldate = cal.getTime();
             String date1 = dateFormat.format(caldate);
             date[i] = date1;
-            if (i < consumption.size()) {
-                dataset.setValue(consumption.get(i), "Coffee Volume", date[i]);
-            }
-            else {
-                dataset.setValue(0, "Coffee Volume", date[i]);
-            }
-
+            
+            dataset.setValue(consumption[i], "Coffee Volume", date[i]);
         }
 
         return dataset;
+    }
+
+    public int[] parseDaily(String jsonString) {
+        int[] consumption = new int[7];
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        String date = "";
+
+        try {
+            JSONArray array = new JSONArray(jsonString);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject curObject = array.getJSONObject(i);
+                date = curObject.getString("alarm_datetime");
+                for (int j = 0; j < 7; j++) {
+                    Calendar cal = Calendar.getInstance();
+                    cal.add(Calendar.DATE, -j);
+                    Date todate1 = cal.getTime();
+                    String fromdate = dateFormat.format(todate1);
+
+
+                    String alarmDate = "";
+                    for (int k = 0; k < 10; k++) {
+                        alarmDate += Character.toString(date.charAt(k));
+                    }
+
+
+                    if (fromdate.equals(alarmDate)) {
+                        consumption[j] += curObject.getInt("consumption");
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return consumption;
     }
 
     public JFreeChart createChart(CategoryDataset dataset) {
