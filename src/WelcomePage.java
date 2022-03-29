@@ -56,10 +56,10 @@ public class WelcomePage extends JFrame {
         Login.setHorizontalAlignment(0);
         Login.setText("Login");
         Login.setVerticalAlignment(0);
-        myWelcomePanel.add(Login, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_NORTH, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(150, 50), new Dimension(150, 50), new Dimension(150, 50), 0, false));
+        myWelcomePanel.add(Login, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_NORTH, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         Register = new JButton();
         Register.setText("Register");
-        myWelcomePanel.add(Register, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(150, 50), new Dimension(150, 50), new Dimension(150, 50), 0, false));
+        myWelcomePanel.add(Register, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

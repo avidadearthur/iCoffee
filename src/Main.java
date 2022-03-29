@@ -2,6 +2,7 @@ import org.json.JSONArray;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.http.HttpResponse;
 
 public class Main {
     private static PageEnum nextPage;
@@ -72,15 +73,19 @@ public class Main {
         switch (newPage) {
             case WELCOME -> {
                 WelcomePage welcomePage = new WelcomePage("Welcome");
-                welcomePage.setSize(500,700);
+                welcomePage.setSize(300, 400);
                 welcomePage.getRegister().addActionListener(e -> registerButtonPressed(welcomePage));
                 welcomePage.getLogin().addActionListener(e -> loginButtonPressed(welcomePage));
             }
             case LOGIN -> {
                 LoginPage loginPage = new LoginPage("Login");
-                loginPage.setSize(500,700);
+                loginPage.setSize(300, 400);
                 loginPage.getLogin().addActionListener(e -> submitLogin(loginPage));
                 loginPage.getBack().addActionListener(e -> switchPage(PageEnum.WELCOME));
+            }
+            case REGISTER -> {
+                RegisterPage registerPage = new RegisterPage("Register Page");
+                registerPage.setSize(300, 400);
             }
             case HOMEPAGE -> {
                 HomeFrame homePage = new HomeFrame("Home Page",jsonResponseAlarms);
@@ -90,6 +95,8 @@ public class Main {
             }
         }
     }
+
+
 
     //Code always starts running at main
     public static void main(String[] args) {
