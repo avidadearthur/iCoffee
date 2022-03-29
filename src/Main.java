@@ -46,11 +46,34 @@ public class Main {
 
     private static void submitLogin(LoginPage loginPage) {
         jsonResponseAlarms = loginPage.handleForm();
-        if (jsonResponseAlarms.length() != 0){saveUserSession(loginPage.getCredentials());}
-        loginPage.setVisible(false);
-        loginPage.dispose();
-        nextPage = PageEnum.HOMEPAGE;
-        switchPage(nextPage);
+        if (jsonResponseAlarms != null){
+            saveUserSession(loginPage.getCredentials());
+            loginPage.setVisible(false);
+            loginPage.dispose();
+            nextPage = PageEnum.HOMEPAGE;
+            switchPage(nextPage);
+        }
+        else {
+            JFrame f =new JFrame();
+            JOptionPane.showMessageDialog(f,"Wrong Username or Password ","Alert",JOptionPane.WARNING_MESSAGE);
+            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            nextPage = PageEnum.LOGIN;
+            switchPage(nextPage);
+        }
+    }
+    private static void submitRegister(RegisterPage registerPage) {
+        jsonResponseAlarms = registerPage.handleForm();
+        if (jsonResponseAlarms != null) {
+            nextPage = PageEnum.LOGIN;
+            switchPage(nextPage);
+        }
+        else {
+            JFrame f =new JFrame();
+            JOptionPane.showMessageDialog(f,"Passwords don't match ","Alert",JOptionPane.WARNING_MESSAGE);
+            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            nextPage = PageEnum.REGISTER;
+            switchPage(nextPage);
+        }
     }
 
     public static void refresh() {
@@ -58,7 +81,6 @@ public class Main {
         Connection connection = new Connection();
         String response = connection.makeGETRequest("https://studev.groept.be/api/a21ib2b02/getAlarms/" + userCredential[0]);
         jsonResponseAlarms = new JSONArray(response);
-
         //System.out.println(Arrays.toString(JFrame.getFrames()));;
         nextPage = PageEnum.HOMEPAGE;
         switchPage(nextPage);
@@ -86,6 +108,8 @@ public class Main {
             case REGISTER -> {
                 RegisterPage registerPage = new RegisterPage("Register Page");
                 registerPage.setSize(300, 400);
+                registerPage.getRegisterButton().addActionListener(e -> submitRegister(registerPage));
+                registerPage.getBack().addActionListener(e -> switchPage(PageEnum.WELCOME));
             }
             case HOMEPAGE -> {
                 HomeFrame homePage = new HomeFrame("Home Page",jsonResponseAlarms);
@@ -95,8 +119,6 @@ public class Main {
             }
         }
     }
-
-
 
     //Code always starts running at main
     public static void main(String[] args) {

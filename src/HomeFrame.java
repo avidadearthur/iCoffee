@@ -7,10 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 class HomeFrame extends JFrame {
     public JPanel contentPane;
@@ -24,19 +21,6 @@ class HomeFrame extends JFrame {
         this.setSize(500, 800);
         System.out.println(jsonResponseAlarms);
         setHomePageUI();
-
-/*        buttonAddAlarm.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("add alarm");
-            }
-        });*/
-
-        buttonLogOut.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("stats");
-            }
-        });
-
         this.setLocationRelativeTo(null);
         this.setContentPane(contentPane);
         this.setVisible(true);
@@ -66,7 +50,6 @@ class HomeFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(homePagePanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
 
         return scrollPane;
     }
@@ -112,23 +95,18 @@ class HomeFrame extends JFrame {
         panel5.add(welcomeLabel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
 
         JLabel summaryALabel = new JLabel();
-        summaryALabel.setText(new DBparsing(Main.getUserCredentials()[0]).getSummaryA());
+        summaryALabel.setText(new DataVisualization(Main.getUserCredentials()[0]).getSummaryA());
         panel5.add(summaryALabel, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
 
         JLabel summaryBLabel = new JLabel();
-        summaryBLabel.setText(new DBparsing(Main.getUserCredentials()[0]).getSummaryB());
+        summaryBLabel.setText(new DataVisualization(Main.getUserCredentials()[0]).getSummaryB());
         panel5.add(summaryBLabel, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-
 
         JScrollPane scrollPane = getAlarmScrollPane();
         panel3.add(scrollPane, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(200, 400), null, 1, false));
         //panel3.setBackground(Color.YELLOW);
 
-        /*
-        final Spacer spacer3 = new Spacer();
-        panel6.add(spacer3, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
-*/
-        JFreeChart chart = new DBparsing(Main.getUserCredentials()[0]).initChart();
+        JFreeChart chart = new DataVisualization(Main.getUserCredentials()[0]).initChart();
         JPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(1200,300));
         chartPanel.setVisible(true);

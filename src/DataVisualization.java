@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.swing.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,11 +13,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-class DBparsing extends JFrame{
-    private Connection c;
-    private String targetUser;
+class DataVisualization {
+    private final Connection c;
+    private final String targetUser;
 
-    public DBparsing(String targetUser) {
+    public DataVisualization(String targetUser) {
         c = new Connection();
         this.targetUser = targetUser;
     }
@@ -43,11 +42,10 @@ class DBparsing extends JFrame{
                     Date todate1 = cal.getTime();
                     String fromdate = dateFormat.format(todate1);
 
-
                     StringBuilder alarmDate = new StringBuilder();
                     for(int k=0; k<10; k++)
                     {
-                        alarmDate.append(Character.toString(date.charAt(k)));
+                        alarmDate.append(date.charAt(k));
                     }
 
                     if(fromdate.equals(alarmDate.toString()))
@@ -138,15 +136,8 @@ class DBparsing extends JFrame{
             Date caldate = cal.getTime();
             String date1 = dateFormat.format(caldate);
             date[i] = date1;
+            dataset.setValue(consumption.get(i), "Coffee Volume", date[i]);
         }
-
-        dataset.setValue(consumption.get(6), "Coffee Volume", date[6]);
-        dataset.setValue(consumption.get(5), "Coffee Volume", date[5]);
-        dataset.setValue(consumption.get(4), "Coffee Volume", date[4]);
-        dataset.setValue(consumption.get(3), "Coffee Volume", date[3]);
-        dataset.setValue(consumption.get(2), "Coffee Volume", date[2]);
-        dataset.setValue(consumption.get(1), "Coffee Volume", date[1]);
-        dataset.setValue(consumption.get(0), "Coffee Volume", date[0]);
 
         return dataset;
     }

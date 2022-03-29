@@ -16,14 +16,6 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="c3592" class="javax.swing.JButton" binding="Register">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Register"/>
-            </properties>
-          </component>
           <component id="1643e" class="javax.swing.JButton" binding="Login">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
@@ -32,6 +24,14 @@
               <horizontalAlignment value="0"/>
               <text value="Login"/>
               <verticalAlignment value="0"/>
+            </properties>
+          </component>
+          <component id="c3592" class="javax.swing.JButton" binding="Register">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Register"/>
             </properties>
           </component>
         </children>

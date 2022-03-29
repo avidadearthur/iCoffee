@@ -49,6 +49,10 @@ public class LoginPage extends JFrame {
         String inputUsername = this.getMyTextEmail().getText();
         String inputPassword = String.valueOf(this.getPasswordField1().getPassword());
 
+        if (inputPassword.equals("") | inputUsername.equals("")) {
+            return false;
+        }
+
         Connection connection = new Connection();
         String password = connection.parseJSON(connection.makeGETRequest("https://studev.groept.be/api/a21ib2b02/findPassword/" + inputUsername), "Password");
 
