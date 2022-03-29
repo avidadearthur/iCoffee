@@ -43,7 +43,7 @@ class HomeFrame extends JFrame {
 
         for (Object object : alarms) {
             JPanel alarmPanel = new AlarmPanel((JSONObject) object).getAlarmPanel();
-            homePagePanel.add(alarmPanel, new GridConstraints(row, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200,100), null, 0, false));
+            homePagePanel.add(alarmPanel, new GridConstraints(row, 0, 1, 3, GridConstraints.ANCHOR_NORTH, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200,100), null, 0, false));
             row++;
         }
 
@@ -103,7 +103,7 @@ class HomeFrame extends JFrame {
         panel5.add(summaryBLabel, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
 
         JScrollPane scrollPane = getAlarmScrollPane();
-        panel3.add(scrollPane, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(200, 400), null, 1, false));
+        panel3.add(scrollPane, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(250, 400), null, 1, false));
         //panel3.setBackground(Color.YELLOW);
 
         JFreeChart chart = new DataVisualization(Main.getUserCredentials()[0]).initChart();

@@ -7,6 +7,7 @@ import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.util.Locale;
+import java.util.Objects;
 
 class RegisterPage extends JFrame {
     private JTextField eMailTextField;
@@ -15,18 +16,14 @@ class RegisterPage extends JFrame {
     private JPanel myPanel;
     private JPasswordField passwordField;
     private JPasswordField passwordField2;
-    private final String email;
-    private final String username;
-    private final String password;
-    private final String password2;
+    private String email;
+    private String username;
+    private String password;
+    private String password2;
     private JButton back;
 
     public RegisterPage(String title) {
         super(title);
-        this.email = eMailTextField.getText();
-        this.username = usernameTextField.getText();
-        this.password = String.valueOf(passwordField.getPassword());
-        this.password2 = String.valueOf(passwordField2.getPassword());
         setContentPane(myPanel);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -34,8 +31,15 @@ class RegisterPage extends JFrame {
     }
 
     private boolean validateAccount() {
-        if (username != null && email != null) {
-            return password.equals(password2);
+        this.email = eMailTextField.getText();
+        System.out.println(this.email);
+        this.username = usernameTextField.getText();
+        this.password = String.valueOf(passwordField.getPassword());
+        this.password2 = String.valueOf(passwordField2.getPassword());
+
+        if (!Objects.equals(username, "") && !Objects.equals(email, "")) {
+            if (!Objects.equals(password, "") && !Objects.equals(password2, ""))
+                return password.equals(password2);
         }
         return false;
     }
@@ -45,7 +49,8 @@ class RegisterPage extends JFrame {
         Connection connection = new Connection();
 
         if (validateAccount()) {
-            String url = "https://studev.groept.be/api/a21ib2b02/AddUser/" + email + "/" + username + "/" + password;
+            String url = "https://studev.groept.be/api/a21ib2b02/AddUser/" + this.email + "/" + this.username + "/" + this.password;
+            System.out.println(url);
             String response = connection.makeGETRequest(url);
             jsonResponse = new JSONArray(response);
             return jsonResponse;

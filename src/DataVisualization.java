@@ -136,7 +136,13 @@ class DataVisualization {
             Date caldate = cal.getTime();
             String date1 = dateFormat.format(caldate);
             date[i] = date1;
-            dataset.setValue(consumption.get(i), "Coffee Volume", date[i]);
+            if (i < consumption.size()) {
+                dataset.setValue(consumption.get(i), "Coffee Volume", date[i]);
+            }
+            else {
+                dataset.setValue(0, "Coffee Volume", date[i]);
+            }
+
         }
 
         return dataset;
