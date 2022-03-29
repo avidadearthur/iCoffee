@@ -57,47 +57,4 @@ public class Connection {
         return var.toString();
     }
 
-    public ArrayList<Integer> parseJSONtoList (String jsonString, String key){
-        ArrayList<Integer> list = new ArrayList<>();
-        try {
-            JSONArray array = new JSONArray(jsonString);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject curObject = array.getJSONObject(i);
-                list.add(curObject.getInt(key));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    public String parseJSONputdatain (String jsonString){
-        String var = "";
-        try {
-            JSONArray array = new JSONArray(jsonString);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject curObject = array.getJSONObject(i);
-                var += curObject.getString("Password" + ", ");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return var;
-    }
-
-    public ArrayList<String> parseJSONAlarm (String jsonString){
-        ArrayList<String> var = new ArrayList<String>();
-        try {
-            JSONArray array = new JSONArray(jsonString);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject curObject = array.getJSONObject(i);
-                var.add(curObject.getString("alarm_datetime"));
-                var.add(curObject.getString("temp"));
-                var.add(String.valueOf(curObject.getInt("volume")));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return var;
-    }
 }
