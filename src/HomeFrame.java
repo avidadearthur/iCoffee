@@ -91,7 +91,7 @@ class HomeFrame extends JFrame {
         panel5.setLayout(new GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
 
         JLabel welcomeLabel = new JLabel();
-        welcomeLabel.setText("Welcome user, here are your coffee alarms");
+        welcomeLabel.setText("Welcome "+ Main.getUserCredentials()[0] +", here are your coffee alarms");
         panel5.add(welcomeLabel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
 
         JLabel summaryALabel = new JLabel();
