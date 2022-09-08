@@ -14,6 +14,7 @@ The app had simple register and login functionalities with basic error checking 
 
 <img src="https://github.com/avidadearthur/iCoffee/blob/master/screenshots/login_with_error.png" width=48% height=48%> <img src="https://github.com/avidadearthur/iCoffee/blob/master/screenshots/register_with_error.png" width=48% height=48%>
 
-On the app's main page, the user can see their last week's coffee consuption on a bar chart and schedule future alarms with desired coffee temperature and volume. When the database was working the panel would update and display the future alarms as editable blocks on the scroll-panel on the left. Each alarm was a JPanel object that could be changed or deleted. Note that since the project's database has been cleared out, no alarms will show up upon creation.
+On the app's main page, the user can see their last week's coffee consuption on a bar chart and schedule future alarms with desired coffee temperature and volume. When the database was working the panel would update and display the future alarms as editable blocks on the scroll-panel on the left. Each alarm was a JPanel object that could be changed or deleted and it would be queued by the Raspberry Pi to activate the coffee machine at the right moment and pump the right amount of water. The alarm clock part of this project can be found [here](https://github.com/avidadearthur/IB2).
+Note that since the project's database has been cleared out, no alarms will show up upon creation.
 
 <img src="https://github.com/avidadearthur/iCoffee/blob/master/screenshots/home.png">
