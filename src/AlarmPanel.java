@@ -20,7 +20,7 @@ public class AlarmPanel extends JPanel {
 
     public AlarmPanel(JSONObject alarmInfo) {
         this.alarmInfo = alarmInfo;
-        this.index =  alarmInfo.getString("sessionID");
+        this.index = String.valueOf(alarmInfo.getInt(("sessionID")));
         alarmDate = new JLabel();
         alarmTime = new JLabel();
         alarmVol = new JLabel();
