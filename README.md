@@ -12,8 +12,8 @@ and the desktop application part that can be found in this repo.
 
 The app had simple register and login functionalities with basic error checking of the hashed user inputs. Note that since the project's database has been cleared out, the app will not work as expected.
 
-<img src="https://github.com/avidadearthur/iCoffee/blob/master/screenshots/login_with_error.png" width=40% height=40%> <img src="https://github.com/avidadearthur/iCoffee/blob/master/screenshots/register_with_error.png" width=40% height=40%>
+<img src="https://github.com/avidadearthur/iCoffee/blob/master/screenshots/login_with_error.png" width=48% height=48%> <img src="https://github.com/avidadearthur/iCoffee/blob/master/screenshots/register_with_error.png" width=48% height=48%>
 
 On the app's main page, the user can see their last week's coffee consuption on a bar chart and schedule future alarms with desired coffee temperature and volume. When the database was working the panel would update and display the future alarms as editable blocks on the scroll-panel on the left. Each alarm was a JPanel object that could be changed or deleted. Note that since the project's database has been cleared out, no alarms will show up upon creation.
 
-<img src="" width=40% height=40%>
+<img src="https://github.com/avidadearthur/iCoffee/blob/master/screenshots/home.png">
