@@ -3,6 +3,10 @@
 Project done for the class of Engineering Experience II @ Group T - Faculty of Engineering Technology / academic year 2021-22
 Alarm Clock & Coffee machine connected with Raspberry Pi.
 
+### Authors:
+* [@avidadearthur](https://github.com/avidadearthur)
+* Aymeric Baume
+
 ## Description
 
 Students typically drink a lot of coffee but preparing it in the morning while your housemates try to start their day in the kitchen can be cumbersome. 
